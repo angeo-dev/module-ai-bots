@@ -1,0 +1,928 @@
+{
+  "$schema": "./bots.schema.json",
+  "schema_version": 1,
+  "updated_on": "2026-10-26",
+  "categories": {
+    "training": "Collects content to train AI models",
+    "search": "Builds an AI search or answer index",
+    "user_fetch": "Fetches a page because a person asked an assistant",
+    "agent": "Browses or acts for a person (clicks, carts, forms)",
+    "ads": "Checks ad landing pages",
+    "search_engine": "Classic search engine"
+  },
+  "bots": [
+    {
+      "id": "gptbot",
+      "name": "GPTBot",
+      "operator": "OpenAI",
+      "category": "training",
+      "description": "OpenAI training crawler. Disallow it to opt out of foundation-model training.",
+      "robots_token": "GPTBot",
+      "robots_only": false,
+      "ua_tokens": [
+        "gptbot"
+      ],
+      "ip_ranges_url": "https://openai.com/gptbot.json",
+      "ip_ranges_shared": false,
+      "signature_agents": [],
+      "respects_robots": true,
+      "crawl_delay": false,
+      "status": "active",
+      "docs_url": "https://developers.openai.com/api/docs/bots",
+      "checked_on": "2026-10-16"
+    },
+    {
+      "id": "oai_searchbot",
+      "name": "OAI-SearchBot",
+      "operator": "OpenAI",
+      "category": "search",
+      "description": "ChatGPT search. Finds and cites sites in ChatGPT search answers.",
+      "robots_token": "OAI-SearchBot",
+      "robots_only": false,
+      "ua_tokens": [
+        "oai-searchbot"
+      ],
+      "ip_ranges_url": "https://openai.com/searchbot.json",
+      "ip_ranges_shared": false,
+      "signature_agents": [],
+      "respects_robots": true,
+      "crawl_delay": null,
+      "status": "active",
+      "docs_url": "https://developers.openai.com/api/docs/bots",
+      "checked_on": "2026-10-16"
+    },
+    {
+      "id": "chatgpt_user",
+      "name": "ChatGPT-User",
+      "operator": "OpenAI",
+      "category": "user_fetch",
+      "description": "Fetches a page when a ChatGPT user asks about it. OpenAI notes robots.txt may not apply to user-initiated actions.",
+      "robots_token": "ChatGPT-User",
+      "robots_only": false,
+      "ua_tokens": [
+        "chatgpt-user"
+      ],
+      "ip_ranges_url": "https://openai.com/chatgpt-user.json",
+      "ip_ranges_shared": false,
+      "signature_agents": [
+        "https://chatgpt.com"
+      ],
+      "respects_robots": null,
+      "crawl_delay": null,
+      "status": "active",
+      "docs_url": "https://developers.openai.com/api/docs/bots",
+      "checked_on": "2026-10-16"
+    },
+    {
+      "id": "chatgpt_agent",
+      "name": "ChatGPT agent",
+      "operator": "OpenAI",
+      "category": "agent",
+      "description": "ChatGPT agent mode. Browses with a normal Chrome user agent and signs its requests with Web Bot Auth (Signature-Agent https://chatgpt.com).",
+      "robots_token": null,
+      "robots_only": false,
+      "ua_tokens": [],
+      "ip_ranges_url": null,
+      "ip_ranges_shared": false,
+      "signature_agents": [
+        "https://chatgpt.com"
+      ],
+      "respects_robots": null,
+      "crawl_delay": null,
+      "status": "active",
+      "docs_url": "https://developers.openai.com/api/docs/bots",
+      "checked_on": "2026-10-16"
+    },
+    {
+      "id": "oai_adsbot",
+      "name": "OAI-AdsBot",
+      "operator": "OpenAI",
+      "category": "ads",
+      "description": "Checks landing pages submitted as ChatGPT ads. Visits only ad pages; not used for training.",
+      "robots_token": "OAI-AdsBot",
+      "robots_only": false,
+      "ua_tokens": [
+        "oai-adsbot"
+      ],
+      "ip_ranges_url": null,
+      "ip_ranges_shared": false,
+      "signature_agents": [],
+      "respects_robots": true,
+      "crawl_delay": null,
+      "status": "active",
+      "docs_url": "https://developers.openai.com/api/docs/bots",
+      "checked_on": "2026-10-16"
+    },
+    {
+      "id": "claudebot",
+      "name": "ClaudeBot",
+      "operator": "Anthropic",
+      "category": "training",
+      "description": "Anthropic training crawler. Collects public web content that may be used to train Claude models.",
+      "robots_token": "ClaudeBot",
+      "robots_only": false,
+      "ua_tokens": [
+        "claudebot"
+      ],
+      "ip_ranges_url": "https://claude.com/crawling/bots.json",
+      "ip_ranges_shared": true,
+      "signature_agents": [],
+      "respects_robots": true,
+      "crawl_delay": true,
+      "status": "active",
+      "docs_url": "https://support.claude.com/en/articles/8896518-does-anthropic-crawl-data-from-the-web-and-how-can-site-owners-block-the-crawler",
+      "checked_on": "2026-10-16"
+    },
+    {
+      "id": "claude_searchbot",
+      "name": "Claude-SearchBot",
+      "operator": "Anthropic",
+      "category": "search",
+      "description": "Anthropic search crawler. Indexes content to improve Claude search results.",
+      "robots_token": "Claude-SearchBot",
+      "robots_only": false,
+      "ua_tokens": [
+        "claude-searchbot"
+      ],
+      "ip_ranges_url": "https://claude.com/crawling/bots.json",
+      "ip_ranges_shared": true,
+      "signature_agents": [],
+      "respects_robots": true,
+      "crawl_delay": true,
+      "status": "active",
+      "docs_url": "https://support.claude.com/en/articles/8896518-does-anthropic-crawl-data-from-the-web-and-how-can-site-owners-block-the-crawler",
+      "checked_on": "2026-10-16"
+    },
+    {
+      "id": "claude_user",
+      "name": "Claude-User",
+      "operator": "Anthropic",
+      "category": "user_fetch",
+      "description": "Fetches a page when a Claude user asks a question. Anthropic documents that it follows robots.txt.",
+      "robots_token": "Claude-User",
+      "robots_only": false,
+      "ua_tokens": [
+        "claude-user"
+      ],
+      "ip_ranges_url": "https://claude.com/crawling/bots.json",
+      "ip_ranges_shared": true,
+      "signature_agents": [],
+      "respects_robots": true,
+      "crawl_delay": true,
+      "status": "active",
+      "docs_url": "https://support.claude.com/en/articles/8896518-does-anthropic-crawl-data-from-the-web-and-how-can-site-owners-block-the-crawler",
+      "checked_on": "2026-10-16"
+    },
+    {
+      "id": "anthropic_ai",
+      "name": "anthropic-ai",
+      "operator": "Anthropic",
+      "category": "training",
+      "description": "Retired by Anthropic. Use ClaudeBot instead. Kept so old robots.txt rules keep working.",
+      "robots_token": "anthropic-ai",
+      "robots_only": false,
+      "ua_tokens": [
+        "anthropic-ai"
+      ],
+      "ip_ranges_url": null,
+      "ip_ranges_shared": false,
+      "signature_agents": [],
+      "respects_robots": true,
+      "crawl_delay": null,
+      "status": "deprecated",
+      "docs_url": "https://support.claude.com/en/articles/8896518-does-anthropic-crawl-data-from-the-web-and-how-can-site-owners-block-the-crawler",
+      "checked_on": "2026-09-05"
+    },
+    {
+      "id": "perplexitybot",
+      "name": "PerplexityBot",
+      "operator": "Perplexity",
+      "category": "search",
+      "description": "Perplexity search index. Perplexity states it is not used to train foundation models.",
+      "robots_token": "PerplexityBot",
+      "robots_only": false,
+      "ua_tokens": [
+        "perplexitybot"
+      ],
+      "ip_ranges_url": "https://www.perplexity.com/perplexitybot.json",
+      "ip_ranges_shared": false,
+      "signature_agents": [],
+      "respects_robots": true,
+      "crawl_delay": null,
+      "status": "active",
+      "docs_url": "https://docs.perplexity.ai/docs/resources/perplexity-crawlers",
+      "checked_on": "2026-09-05"
+    },
+    {
+      "id": "perplexity_user",
+      "name": "Perplexity-User",
+      "operator": "Perplexity",
+      "category": "user_fetch",
+      "description": "Fetches a page for a Perplexity user. Perplexity states it generally ignores robots.txt for user requests.",
+      "robots_token": "Perplexity-User",
+      "robots_only": false,
+      "ua_tokens": [
+        "perplexity-user"
+      ],
+      "ip_ranges_url": "https://www.perplexity.com/perplexity-user.json",
+      "ip_ranges_shared": false,
+      "signature_agents": [],
+      "respects_robots": false,
+      "crawl_delay": null,
+      "status": "active",
+      "docs_url": "https://docs.perplexity.ai/docs/resources/perplexity-crawlers",
+      "checked_on": "2026-09-05"
+    },
+    {
+      "id": "google_extended",
+      "name": "Google-Extended",
+      "operator": "Google",
+      "category": "training",
+      "description": "robots.txt token only, never sends requests. Controls use of content for Gemini training and grounding. No effect on Google Search.",
+      "robots_token": "Google-Extended",
+      "robots_only": true,
+      "ua_tokens": [],
+      "ip_ranges_url": null,
+      "ip_ranges_shared": false,
+      "signature_agents": [],
+      "respects_robots": true,
+      "crawl_delay": false,
+      "status": "active",
+      "docs_url": "https://developers.google.com/crawling/docs/crawlers-fetchers/overview-google-crawlers",
+      "checked_on": "2026-10-26"
+    },
+    {
+      "id": "googlebot",
+      "name": "Googlebot",
+      "operator": "Google",
+      "category": "search_engine",
+      "description": "Google Search crawler.",
+      "robots_token": "Googlebot",
+      "robots_only": false,
+      "ua_tokens": [
+        "googlebot"
+      ],
+      "ip_ranges_url": "https://developers.google.com/static/crawling/ipranges/common-crawlers.json",
+      "ip_ranges_shared": true,
+      "signature_agents": [],
+      "respects_robots": true,
+      "crawl_delay": null,
+      "status": "active",
+      "docs_url": "https://developers.google.com/crawling/docs/crawlers-fetchers/overview-google-crawlers",
+      "checked_on": "2026-10-26"
+    },
+    {
+      "id": "googleother",
+      "name": "GoogleOther",
+      "operator": "Google",
+      "category": "training",
+      "description": "Generic Google crawler used by product teams, including research and development.",
+      "robots_token": "GoogleOther",
+      "robots_only": false,
+      "ua_tokens": [
+        "googleother"
+      ],
+      "ip_ranges_url": "https://developers.google.com/static/crawling/ipranges/common-crawlers.json",
+      "ip_ranges_shared": true,
+      "signature_agents": [],
+      "respects_robots": true,
+      "crawl_delay": null,
+      "status": "active",
+      "docs_url": "https://developers.google.com/crawling/docs/crawlers-fetchers/overview-google-crawlers",
+      "checked_on": "2026-10-26"
+    },
+    {
+      "id": "google_cloudvertexbot",
+      "name": "Google-CloudVertexBot",
+      "operator": "Google",
+      "category": "training",
+      "description": "Crawls sites for Vertex AI Agents at the request of the site owner.",
+      "robots_token": "Google-CloudVertexBot",
+      "robots_only": false,
+      "ua_tokens": [
+        "google-cloudvertexbot"
+      ],
+      "ip_ranges_url": null,
+      "ip_ranges_shared": false,
+      "signature_agents": [],
+      "respects_robots": true,
+      "crawl_delay": null,
+      "status": "active",
+      "docs_url": "https://developers.google.com/crawling/docs/crawlers-fetchers/overview-google-crawlers",
+      "checked_on": "2026-10-16"
+    },
+    {
+      "id": "google_agent",
+      "name": "Google-Agent",
+      "operator": "Google",
+      "category": "agent",
+      "description": "Google agent that browses and acts for a user. Signs requests with Web Bot Auth.",
+      "robots_token": "Google-Agent",
+      "robots_only": false,
+      "ua_tokens": [
+        "google-agent"
+      ],
+      "ip_ranges_url": "https://developers.google.com/static/crawling/ipranges/user-triggered-agents.json",
+      "ip_ranges_shared": false,
+      "signature_agents": [
+        "https://agent.bot.goog"
+      ],
+      "respects_robots": null,
+      "crawl_delay": null,
+      "status": "active",
+      "docs_url": "https://developers.google.com/crawling/docs/crawlers-fetchers/google-agent",
+      "checked_on": "2026-10-26"
+    },
+    {
+      "id": "google_notebook",
+      "name": "Google-NotebookLM",
+      "operator": "Google",
+      "category": "user_fetch",
+      "description": "Fetches a source URL that a NotebookLM or Gemini user added.",
+      "robots_token": "Google-NotebookLM",
+      "robots_only": false,
+      "ua_tokens": [
+        "google-notebooklm",
+        "google-gemininotebook"
+      ],
+      "ip_ranges_url": "https://developers.google.com/static/crawling/ipranges/user-triggered-fetchers-google.json",
+      "ip_ranges_shared": true,
+      "signature_agents": [],
+      "respects_robots": null,
+      "crawl_delay": null,
+      "status": "active",
+      "docs_url": "https://developers.google.com/crawling/docs/crawlers-fetchers/google-gemininotebook",
+      "checked_on": "2026-10-26"
+    },
+    {
+      "id": "applebot",
+      "name": "Applebot",
+      "operator": "Apple",
+      "category": "search",
+      "description": "Apple crawler for Siri, Spotlight and Safari suggestions.",
+      "robots_token": "Applebot",
+      "robots_only": false,
+      "ua_tokens": [
+        "applebot"
+      ],
+      "ip_ranges_url": "https://search.developer.apple.com/applebot.json",
+      "ip_ranges_shared": false,
+      "signature_agents": [],
+      "respects_robots": true,
+      "crawl_delay": null,
+      "status": "active",
+      "docs_url": "https://support.apple.com/en-us/119829",
+      "checked_on": "2026-10-26"
+    },
+    {
+      "id": "applebot_extended",
+      "name": "Applebot-Extended",
+      "operator": "Apple",
+      "category": "training",
+      "description": "robots.txt token only, never sends requests. Opts content crawled by Applebot out of Apple foundation-model training.",
+      "robots_token": "Applebot-Extended",
+      "robots_only": true,
+      "ua_tokens": [],
+      "ip_ranges_url": null,
+      "ip_ranges_shared": false,
+      "signature_agents": [],
+      "respects_robots": true,
+      "crawl_delay": null,
+      "status": "active",
+      "docs_url": "https://support.apple.com/en-us/119829",
+      "checked_on": "2026-10-26"
+    },
+    {
+      "id": "amazonbot",
+      "name": "Amazonbot",
+      "operator": "Amazon",
+      "category": "training",
+      "description": "Amazon crawler. Amazon states the data may be used to train Amazon AI models.",
+      "robots_token": "Amazonbot",
+      "robots_only": false,
+      "ua_tokens": [
+        "amazonbot"
+      ],
+      "ip_ranges_url": null,
+      "ip_ranges_shared": false,
+      "signature_agents": [],
+      "respects_robots": true,
+      "crawl_delay": false,
+      "status": "active",
+      "docs_url": "https://developer.amazon.com/support/amazonbot",
+      "checked_on": "2026-10-26"
+    },
+    {
+      "id": "amzn_searchbot",
+      "name": "Amzn-SearchBot",
+      "operator": "Amazon",
+      "category": "search",
+      "description": "Amazon search crawler for Alexa and other products. Not used for generative AI training.",
+      "robots_token": "Amzn-SearchBot",
+      "robots_only": false,
+      "ua_tokens": [
+        "amzn-searchbot"
+      ],
+      "ip_ranges_url": null,
+      "ip_ranges_shared": false,
+      "signature_agents": [],
+      "respects_robots": true,
+      "crawl_delay": false,
+      "status": "active",
+      "docs_url": "https://developer.amazon.com/support/amazonbot",
+      "checked_on": "2026-10-26"
+    },
+    {
+      "id": "amzn_user",
+      "name": "Amzn-User",
+      "operator": "Amazon",
+      "category": "user_fetch",
+      "description": "Fetches live information for an Alexa user. Amazon notes it may not follow all robots.txt rules.",
+      "robots_token": "Amzn-User",
+      "robots_only": false,
+      "ua_tokens": [
+        "amzn-user"
+      ],
+      "ip_ranges_url": null,
+      "ip_ranges_shared": false,
+      "signature_agents": [],
+      "respects_robots": null,
+      "crawl_delay": false,
+      "status": "active",
+      "docs_url": "https://developer.amazon.com/support/amazonbot",
+      "checked_on": "2026-10-26"
+    },
+    {
+      "id": "meta_external_agent",
+      "name": "Meta-ExternalAgent",
+      "operator": "Meta",
+      "category": "training",
+      "description": "Meta crawler for AI training and indexing.",
+      "robots_token": "Meta-ExternalAgent",
+      "robots_only": false,
+      "ua_tokens": [
+        "meta-externalagent"
+      ],
+      "ip_ranges_url": null,
+      "ip_ranges_shared": false,
+      "signature_agents": [],
+      "respects_robots": true,
+      "crawl_delay": null,
+      "status": "active",
+      "docs_url": null,
+      "checked_on": "2026-10-16"
+    },
+    {
+      "id": "meta_external_fetcher",
+      "name": "meta-externalfetcher",
+      "operator": "Meta",
+      "category": "user_fetch",
+      "description": "Fetches a page when a Meta AI user asks about it.",
+      "robots_token": "meta-externalfetcher",
+      "robots_only": false,
+      "ua_tokens": [
+        "meta-externalfetcher"
+      ],
+      "ip_ranges_url": null,
+      "ip_ranges_shared": false,
+      "signature_agents": [],
+      "respects_robots": null,
+      "crawl_delay": null,
+      "status": "active",
+      "docs_url": null,
+      "checked_on": "2026-10-16"
+    },
+    {
+      "id": "mistralai_user",
+      "name": "MistralAI-User",
+      "operator": "Mistral AI",
+      "category": "user_fetch",
+      "description": "Fetches a page for a Le Chat user.",
+      "robots_token": "MistralAI-User",
+      "robots_only": false,
+      "ua_tokens": [
+        "mistralai-user"
+      ],
+      "ip_ranges_url": null,
+      "ip_ranges_shared": false,
+      "signature_agents": [],
+      "respects_robots": true,
+      "crawl_delay": null,
+      "status": "active",
+      "docs_url": null,
+      "checked_on": "2026-10-16"
+    },
+    {
+      "id": "duckassistbot",
+      "name": "DuckAssistBot",
+      "operator": "DuckDuckGo",
+      "category": "user_fetch",
+      "description": "Fetches pages for DuckDuckGo AI answers.",
+      "robots_token": "DuckAssistBot",
+      "robots_only": false,
+      "ua_tokens": [
+        "duckassistbot"
+      ],
+      "ip_ranges_url": null,
+      "ip_ranges_shared": false,
+      "signature_agents": [],
+      "respects_robots": true,
+      "crawl_delay": null,
+      "status": "active",
+      "docs_url": null,
+      "checked_on": "2026-10-16"
+    },
+    {
+      "id": "grok_agent",
+      "name": "GrokAgent",
+      "operator": "xAI",
+      "category": "agent",
+      "description": "xAI agent that browses for Grok users.",
+      "robots_token": "GrokAgent",
+      "robots_only": false,
+      "ua_tokens": [
+        "grokagent"
+      ],
+      "ip_ranges_url": null,
+      "ip_ranges_shared": false,
+      "signature_agents": [],
+      "respects_robots": null,
+      "crawl_delay": null,
+      "status": "active",
+      "docs_url": null,
+      "checked_on": "2026-10-16"
+    },
+    {
+      "id": "cohere_ai",
+      "name": "cohere-ai",
+      "operator": "Cohere",
+      "category": "training",
+      "description": "Cohere crawler.",
+      "robots_token": "cohere-ai",
+      "robots_only": false,
+      "ua_tokens": [
+        "cohere-ai"
+      ],
+      "ip_ranges_url": null,
+      "ip_ranges_shared": false,
+      "signature_agents": [],
+      "respects_robots": true,
+      "crawl_delay": null,
+      "status": "active",
+      "docs_url": null,
+      "checked_on": "2026-10-16"
+    },
+    {
+      "id": "ccbot",
+      "name": "CCBot",
+      "operator": "Common Crawl",
+      "category": "training",
+      "description": "Common Crawl. Builds the open dataset that many models are trained on.",
+      "robots_token": "CCBot",
+      "robots_only": false,
+      "ua_tokens": [
+        "ccbot"
+      ],
+      "ip_ranges_url": null,
+      "ip_ranges_shared": false,
+      "signature_agents": [],
+      "respects_robots": true,
+      "crawl_delay": null,
+      "status": "active",
+      "docs_url": null,
+      "checked_on": "2026-10-16"
+    },
+    {
+      "id": "bytespider",
+      "name": "Bytespider",
+      "operator": "ByteDance",
+      "category": "training",
+      "description": "ByteDance crawler. No public documentation and a poor robots.txt record: a rule is a request, not a control.",
+      "robots_token": "Bytespider",
+      "robots_only": false,
+      "ua_tokens": [
+        "bytespider"
+      ],
+      "ip_ranges_url": null,
+      "ip_ranges_shared": false,
+      "signature_agents": [],
+      "respects_robots": false,
+      "crawl_delay": null,
+      "status": "active",
+      "docs_url": null,
+      "checked_on": "2026-10-16"
+    },
+    {
+      "id": "diffbot",
+      "name": "Diffbot",
+      "operator": "Diffbot",
+      "category": "training",
+      "description": "Diffbot crawler. Builds a knowledge graph sold to AI companies.",
+      "robots_token": "Diffbot",
+      "robots_only": false,
+      "ua_tokens": [
+        "diffbot"
+      ],
+      "ip_ranges_url": null,
+      "ip_ranges_shared": false,
+      "signature_agents": [],
+      "respects_robots": true,
+      "crawl_delay": null,
+      "status": "active",
+      "docs_url": null,
+      "checked_on": "2026-10-16"
+    },
+    {
+      "id": "kimibot",
+      "name": "KimiBot",
+      "operator": "Moonshot AI",
+      "category": "training",
+      "description": "Moonshot AI crawler for the Kimi assistant.",
+      "robots_token": "KimiBot",
+      "robots_only": false,
+      "ua_tokens": [
+        "kimibot"
+      ],
+      "ip_ranges_url": null,
+      "ip_ranges_shared": false,
+      "signature_agents": [],
+      "respects_robots": true,
+      "crawl_delay": null,
+      "status": "active",
+      "docs_url": null,
+      "checked_on": "2026-10-16"
+    },
+    {
+      "id": "bravebot",
+      "name": "Bravebot",
+      "operator": "Brave",
+      "category": "search",
+      "description": "Brave Search crawler, also used for Brave AI answers.",
+      "robots_token": "Bravebot",
+      "robots_only": false,
+      "ua_tokens": [
+        "bravebot"
+      ],
+      "ip_ranges_url": null,
+      "ip_ranges_shared": false,
+      "signature_agents": [],
+      "respects_robots": true,
+      "crawl_delay": null,
+      "status": "active",
+      "docs_url": null,
+      "checked_on": "2026-10-16"
+    },
+    {
+      "id": "youbot",
+      "name": "YouBot",
+      "operator": "You.com",
+      "category": "search",
+      "description": "You.com AI search crawler.",
+      "robots_token": "YouBot",
+      "robots_only": false,
+      "ua_tokens": [
+        "youbot"
+      ],
+      "ip_ranges_url": null,
+      "ip_ranges_shared": false,
+      "signature_agents": [],
+      "respects_robots": true,
+      "crawl_delay": null,
+      "status": "active",
+      "docs_url": null,
+      "checked_on": "2026-10-16"
+    },
+    {
+      "id": "petalbot",
+      "name": "PetalBot",
+      "operator": "Huawei",
+      "category": "search",
+      "description": "Huawei Petal Search crawler.",
+      "robots_token": "PetalBot",
+      "robots_only": false,
+      "ua_tokens": [
+        "petalbot"
+      ],
+      "ip_ranges_url": null,
+      "ip_ranges_shared": false,
+      "signature_agents": [],
+      "respects_robots": true,
+      "crawl_delay": null,
+      "status": "active",
+      "docs_url": null,
+      "checked_on": "2026-10-16"
+    },
+    {
+      "id": "linerbot",
+      "name": "LinerBot",
+      "operator": "Liner",
+      "category": "user_fetch",
+      "description": "Liner AI research assistant fetcher.",
+      "robots_token": "LinerBot",
+      "robots_only": false,
+      "ua_tokens": [
+        "linerbot"
+      ],
+      "ip_ranges_url": null,
+      "ip_ranges_shared": false,
+      "signature_agents": [],
+      "respects_robots": true,
+      "crawl_delay": null,
+      "status": "active",
+      "docs_url": null,
+      "checked_on": "2026-10-16"
+    },
+    {
+      "id": "exa",
+      "name": "Exa",
+      "operator": "Exa",
+      "category": "search",
+      "description": "Exa AI search crawler. Identified by its Web Bot Auth signature.",
+      "robots_token": null,
+      "robots_only": false,
+      "ua_tokens": [],
+      "ip_ranges_url": null,
+      "ip_ranges_shared": false,
+      "signature_agents": [
+        "https://crawler.exa.ai"
+      ],
+      "respects_robots": null,
+      "crawl_delay": null,
+      "status": "active",
+      "docs_url": null,
+      "checked_on": "2026-10-16"
+    },
+    {
+      "id": "bingbot",
+      "name": "Bingbot",
+      "operator": "Microsoft",
+      "category": "search_engine",
+      "description": "Microsoft Bing crawler. Bing results also feed Copilot and other AI answers.",
+      "robots_token": "Bingbot",
+      "robots_only": false,
+      "ua_tokens": [
+        "bingbot"
+      ],
+      "ip_ranges_url": "https://www.bing.com/toolbox/bingbot.json",
+      "ip_ranges_shared": false,
+      "signature_agents": [],
+      "respects_robots": true,
+      "crawl_delay": null,
+      "status": "active",
+      "docs_url": null,
+      "checked_on": "2026-10-16"
+    }
+  ],
+  "signature_agents": {
+    "chatgpt.com": "chatgpt_agent",
+    "agent.bot.goog": "google_agent",
+    "crawler.exa.ai": "exa"
+  },
+  "mcp_clients": [
+    [
+      "claude",
+      "Anthropic"
+    ],
+    [
+      "anthropic",
+      "Anthropic"
+    ],
+    [
+      "chatgpt",
+      "OpenAI"
+    ],
+    [
+      "openai",
+      "OpenAI"
+    ],
+    [
+      "codex",
+      "OpenAI"
+    ],
+    [
+      "gemini",
+      "Google"
+    ],
+    [
+      "google",
+      "Google"
+    ],
+    [
+      "copilot",
+      "Microsoft"
+    ],
+    [
+      "visual-studio",
+      "Microsoft"
+    ],
+    [
+      "vscode",
+      "Microsoft"
+    ],
+    [
+      "cursor",
+      "Cursor"
+    ],
+    [
+      "windsurf",
+      "Windsurf"
+    ],
+    [
+      "perplexity",
+      "Perplexity"
+    ],
+    [
+      "mistral",
+      "Mistral AI"
+    ],
+    [
+      "le-chat",
+      "Mistral AI"
+    ],
+    [
+      "n8n",
+      "n8n"
+    ],
+    [
+      "zapier",
+      "Zapier"
+    ],
+    [
+      "mcp-inspector",
+      "MCP Inspector (developer tool)"
+    ],
+    [
+      "inspector",
+      "MCP Inspector (developer tool)"
+    ],
+    [
+      "mcp-remote",
+      "mcp-remote (proxy)"
+    ],
+    [
+      "angeo",
+      "angeo.dev (scanner)"
+    ]
+  ],
+  "test_tools": [
+    "angeo-agentic-scan",
+    "angeo-",
+    "mcp-inspector",
+    "inspector"
+  ],
+  "ai_referrers": [
+    {
+      "host": "chatgpt.com",
+      "source": "chatgpt",
+      "operator": "OpenAI"
+    },
+    {
+      "host": "chat.openai.com",
+      "source": "chatgpt",
+      "operator": "OpenAI"
+    },
+    {
+      "host": "perplexity.ai",
+      "source": "perplexity",
+      "operator": "Perplexity"
+    },
+    {
+      "host": "claude.ai",
+      "source": "claude",
+      "operator": "Anthropic"
+    },
+    {
+      "host": "gemini.google.com",
+      "source": "gemini",
+      "operator": "Google"
+    },
+    {
+      "host": "copilot.microsoft.com",
+      "source": "copilot",
+      "operator": "Microsoft"
+    },
+    {
+      "host": "chat.mistral.ai",
+      "source": "mistral",
+      "operator": "Mistral AI"
+    },
+    {
+      "host": "grok.com",
+      "source": "grok",
+      "operator": "xAI"
+    },
+    {
+      "host": "you.com",
+      "source": "you",
+      "operator": "You.com"
+    },
+    {
+      "host": "meta.ai",
+      "source": "meta-ai",
+      "operator": "Meta"
+    }
+  ],
+  "ai_utm_sources": {
+    "chatgpt.com": "chatgpt"
+  }
+}

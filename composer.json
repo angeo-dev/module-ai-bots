@@ -1,0 +1,67 @@
+{
+    "name": "angeo/module-ai-bots",
+    "description": "One list of AI crawlers and agents for Magento 2, with checks that a request really comes from the bot it names: published IP ranges and Web Bot Auth signatures (IETF draft). Shared by the Angeo modules for robots.txt, agent traffic and the AEO audit. No storefront output, no data leaves the store.",
+    "type": "magento2-module",
+    "version": "1.0.0",
+    "license": "MIT",
+    "keywords": [
+        "magento2",
+        "ai-bots",
+        "ai-crawlers",
+        "web-bot-auth",
+        "bot-verification",
+        "aeo",
+        "answer-engine-optimization",
+        "adobe-commerce"
+    ],
+    "homepage": "https://angeo.dev",
+    "authors": [
+        {
+            "name": "Ievgenii Gryshkun",
+            "homepage": "https://angeo.dev"
+        }
+    ],
+    "support": {
+        "issues": "https://github.com/angeo-dev/module-ai-bots/issues",
+        "source": "https://github.com/angeo-dev/module-ai-bots",
+        "email": "support@angeo.dev"
+    },
+    "require": {
+        "php": "~8.1.0||~8.2.0||~8.3.0||~8.4.0||~8.5.0",
+        "ext-json": "*",
+        "ext-curl": "*",
+        "magento/framework": ">=103.0.6 <104",
+        "magento/module-cron": ">=100.4.6 <101"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^10.5",
+        "magento/magento-coding-standard": "^40.0 || ^41.0",
+        "phpstan/phpstan": "^2.0",
+        "bitexpert/phpstan-magento": "^0.43"
+    },
+    "suggest": {
+        "ext-sodium": "Needed to check Ed25519 Web Bot Auth signatures. Bundled with PHP since 7.2; without it signed requests stay \"unverified\".",
+        "angeo/module-agent-activity": "Records AI agent traffic and gives the AEO audit its traffic data",
+        "angeo/module-robots-txt-aeo": "Writes robots.txt rules for the bots in this list"
+    },
+    "autoload": {
+        "files": [
+            "registration.php"
+        ],
+        "psr-4": {
+            "Angeo\\AiBots\\": ""
+        }
+    },
+    "config": {
+        "allow-plugins": {
+            "dealerdirect/phpcodesniffer-composer-installer": true,
+            "phpstan/extension-installer": true,
+            "magento/composer-dependency-version-audit-plugin": false,
+            "mage-os/composer-dependency-version-audit-plugin": false,
+            "magento/magento-composer-installer": false,
+            "magento/inventory-composer-installer": false,
+            "laminas/laminas-dependency-plugin": false,
+            "php-http/discovery": false
+        }
+    }
+}

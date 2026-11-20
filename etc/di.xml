@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright (c) 2026 Ievgenii Gryshkun (angeo.dev)
+ * MIT License — see LICENSE for full terms.
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <preference for="Angeo\AiBots\Api\BotRegistryInterface" type="Angeo\AiBots\Model\BotRegistry"/>
+    <preference for="Angeo\AiBots\Api\BotIdentifierInterface" type="Angeo\AiBots\Model\BotIdentifier"/>
+    <preference for="Angeo\AiBots\Api\BotVerifierInterface" type="Angeo\AiBots\Model\Verify\BotVerifier"/>
+    <!-- angeo/module-agent-activity replaces this with its own reader. -->
+    <preference for="Angeo\AiBots\Api\BotTrafficReaderInterface" type="Angeo\AiBots\Model\Traffic\NullTrafficReader"/>
+
+    <!-- One list per process: every consumer gets the same instance. -->
+    <type name="Angeo\AiBots\Model\BotRegistry" shared="true"/>
+
+    <type name="Magento\Framework\Console\CommandListInterface">
+        <arguments>
+            <argument name="commands" xsi:type="array">
+                <item name="angeo_bots_list" xsi:type="object">Angeo\AiBots\Console\Command\ListCommand</item>
+                <item name="angeo_bots_refresh" xsi:type="object">Angeo\AiBots\Console\Command\RefreshCommand</item>
+                <item name="angeo_bots_status" xsi:type="object">Angeo\AiBots\Console\Command\StatusCommand</item>
+                <item name="angeo_bots_verify_ip" xsi:type="object">Angeo\AiBots\Console\Command\VerifyIpCommand</item>
+                <item name="angeo_bots_verify_request" xsi:type="object">Angeo\AiBots\Console\Command\VerifyRequestCommand</item>
+            </argument>
+        </arguments>
+    </type>
+
+    <!-- CLI commands are built lazily so bin/magento stays fast. -->
+    <type name="Angeo\AiBots\Console\Command\RefreshCommand">
+        <arguments>
+            <argument name="refresher" xsi:type="object">Angeo\AiBots\Model\Refresher\Proxy</argument>
+        </arguments>
+    </type>
+    <type name="Angeo\AiBots\Console\Command\VerifyRequestCommand">
+        <arguments>
+            <argument name="refresher" xsi:type="object">Angeo\AiBots\Model\Refresher\Proxy</argument>
+        </arguments>
+    </type>
+</config>

@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright (c) 2026 Ievgenii Gryshkun (angeo.dev)
+ * MIT License — see LICENSE for full terms.
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Cron:etc/crontab.xsd">
+    <group id="default">
+        <!-- Once a day: vendor IP lists and Web Bot Auth keys of the bots in etc/bots.json. -->
+        <job name="angeo_ai_bots_refresh" instance="Angeo\AiBots\Cron\Refresh" method="execute">
+            <schedule>17 4 * * *</schedule>
+        </job>
+    </group>
+</config>

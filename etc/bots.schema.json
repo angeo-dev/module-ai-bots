@@ -1,0 +1,86 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/angeo-dev/module-ai-bots/blob/main/etc/bots.schema.json",
+  "title": "Angeo AI bot list",
+  "description": "Known AI crawlers, agents, MCP clients and AI referrers. Read by angeo/module-ai-bots and by the angeo.dev scanner.",
+  "type": "object",
+  "required": ["schema_version", "updated_on", "categories", "bots", "signature_agents", "mcp_clients", "test_tools", "ai_referrers", "ai_utm_sources"],
+  "additionalProperties": false,
+  "properties": {
+    "$schema": {"type": "string"},
+    "schema_version": {"const": 1},
+    "updated_on": {"type": "string", "format": "date"},
+    "categories": {
+      "type": "object",
+      "propertyNames": {"enum": ["training", "search", "user_fetch", "agent", "ads", "search_engine"]},
+      "additionalProperties": {"type": "string"}
+    },
+    "bots": {
+      "type": "array",
+      "items": {"$ref": "#/$defs/bot"}
+    },
+    "signature_agents": {
+      "description": "Web Bot Auth signing host => bot id, for requests whose user agent names no bot.",
+      "type": "object",
+      "additionalProperties": {"type": "string", "pattern": "^[a-z0-9_]+$"}
+    },
+    "mcp_clients": {
+      "description": "MCP clientInfo.name prefix (lower case, dashes) and operator. First match wins.",
+      "type": "array",
+      "items": {
+        "type": "array",
+        "prefixItems": [{"type": "string", "minLength": 1}, {"type": "string"}],
+        "minItems": 2,
+        "maxItems": 2
+      }
+    },
+    "test_tools": {
+      "description": "Agent name prefixes of test and audit tools. Their calls are recorded but never counted in findings.",
+      "type": "array",
+      "items": {"type": "string", "minLength": 1}
+    },
+    "ai_referrers": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["host", "source", "operator"],
+        "additionalProperties": false,
+        "properties": {
+          "host": {"type": "string", "pattern": "^[a-z0-9.-]+$"},
+          "source": {"type": "string"},
+          "operator": {"type": "string"}
+        }
+      }
+    },
+    "ai_utm_sources": {
+      "description": "utm_source value => AI source, for links that AI answers tag.",
+      "type": "object",
+      "additionalProperties": {"type": "string"}
+    }
+  },
+  "$defs": {
+    "bot": {
+      "type": "object",
+      "required": ["id", "name", "operator", "category", "description", "robots_token", "robots_only", "ua_tokens", "ip_ranges_url", "ip_ranges_shared", "signature_agents", "respects_robots", "crawl_delay", "status", "docs_url", "checked_on"],
+      "additionalProperties": false,
+      "properties": {
+        "id": {"type": "string", "pattern": "^[a-z0-9_]+$"},
+        "name": {"type": "string", "minLength": 1},
+        "operator": {"type": "string", "minLength": 1},
+        "category": {"enum": ["training", "search", "user_fetch", "agent", "ads", "search_engine"]},
+        "description": {"type": "string"},
+        "robots_token": {"type": ["string", "null"], "description": "Token for a robots.txt User-agent line. null: the bot has no token of its own."},
+        "robots_only": {"type": "boolean", "description": "A robots.txt token that never sends requests (Google-Extended)."},
+        "ua_tokens": {"type": "array", "items": {"type": "string", "pattern": "^[a-z0-9._-]+$"}, "description": "Lower-case substrings of the User-Agent header."},
+        "ip_ranges_url": {"type": ["string", "null"], "pattern": "^https://"},
+        "ip_ranges_shared": {"type": "boolean", "description": "The list covers several bots of the operator: a match proves the operator, not the bot."},
+        "signature_agents": {"type": "array", "items": {"type": "string", "pattern": "^https://[a-z0-9.-]+$"}, "description": "Trusted Web Bot Auth origins for this bot."},
+        "respects_robots": {"type": ["boolean", "null"], "description": "null: the operator does not say, or says not always."},
+        "crawl_delay": {"type": ["boolean", "null"], "description": "Whether Crawl-delay is documented as supported. null: unknown."},
+        "status": {"enum": ["active", "deprecated"]},
+        "docs_url": {"type": ["string", "null"], "pattern": "^https://"},
+        "checked_on": {"type": "string", "format": "date"}
+      }
+    }
+  }
+}
